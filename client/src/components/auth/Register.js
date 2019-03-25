@@ -18,14 +18,17 @@ class Register extends Component {
   }
   onSubmit = (e) => {
     e.preventDefault();
-    const newUser = {
+    const newGuy = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     }
-    console.log(newUser);
-
+    axios.post('/api/users/register', newGuy)
+      .then(res => console.log(res.data)
+      )
+      .catch(err => this.setState({ errors: err.response.data })
+      )
   }
   render() {
     return (
@@ -39,7 +42,7 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg" placeholder="Name"
+                    className="is-invalid form-control form-control-lg" placeholder="Name"
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
